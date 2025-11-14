@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="index.js" defer type="module"></script>
+  </head>
+  <body>
+    <div class="container">
+      <canvas id="canvas"></canvas>
+      <textarea autocomplete="off" name="grammar" id="grammar" class="txtarea">
+
+# Comment out the line below for random generation.
+[seed=6181061900003801353]
+
+# You can make the animation faster or slower.
+# [step=0.0005]
+
+# How deep the grammar can go. Make it higher at your own risk.
+[layers = 30]
+
+# E is the entry point rule. It should always be a vec of 3 components.
+# vec takes Red, Green, and Blue components. Values go from -1 to 1.
+# In this example, all 3 components point to the rule C.
+E:| vec(C, C, C)
+
+# Each rule can have different outcomes depending on the number of |. The more |, the more likely this outcome is to be picked.
+# X, Y, and T are reserved and point to the X, Y axis and time respectively.
+A:| rand(-1, 1) |||| X |||| Y || T | D
+
+# PI is also reserved, and the following rule demonstrates the supported operations.
+B:| abs(D) | log(D, 10) | cotan(D, rand(0, PI), rand(1, 6)) | tan(D, rand(0, PI), rand(1, 6)) | cos(D, rand(0, PI), rand(1, 6)) | sin(D, rand(0, PI), rand(1, 6)) | level( rand(-1, 1), A, C, C)
+
+C:| B | A | C + C | C * C | tent(C) | well(C) | sqrt(C) | C - C | C / C
+
+D:| A | C
+      </textarea>
+      <span id="error-message"></span>
+    </div>
+  </body>
+</html>
