@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="index.js" defer type="module"></script>
+  </head>
+  <body>
+    <div class="container">
+      <canvas id="canvas"></canvas>
+      <textarea autocomplete="off" name="grammar" id="grammar" class="txtarea">
+# Calm flowing colors
+# Comment out seed for random art each reload
+[seed=9513514972533793164]
+[layers=40]
+[step=0.0002]
+
+# Entry: Smooth color gradients
+E:| vec(R, G, B)
+
+# Smooth, slow-moving patterns for each channel
+R:| sin(X + T, 0, 1) |||| X | tent(R) ||| C
+
+G:| cos(Y + T, 0, 1) |||| Y | well(G) | B | T ||| C
+
+C:| B | R | C + C | C * C | tent(C) | well(C) | sqrt(C) | C - C | C / C
+
+B:| sin(X + Y + T, 0, 1) |||| cos(X - Y, 0, 1) | tent(B) || R
+      </textarea>
+      <span id="error-message"></span>
+    </div>
+  </body>
+</html>
